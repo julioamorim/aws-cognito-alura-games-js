@@ -1,3 +1,6 @@
+var userPool
+var cognitoUser
+
 //obter dados de conexao com o cognito a partir do localstorage
 function getPoolData() {
     return {
@@ -6,59 +9,60 @@ function getPoolData() {
     }
 }
 
-var userPool
 function getUserPool() {
-    if (userPool === undefined) {
+    if (userPool == undefined) {
         userPool = new AmazonCognitoIdentity.CognitoUserPool(getPoolData())
     }
     return userPool
 }
 
-var cognitoUser
+function cadastrarCognito(userName, name, userEmail, userPassword, callback) {
+    console.log('obtendo usuário')
+}
+
 function getUser(userName) {
-    if (cognitoUser === undefined) {
-        var userData = {
-            Username: userName,
-            Pool: getUserPool()
-        }
-        cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData)
-    }
-    return cognitoUser
+    console.log('obtendo usuário')
+}
+
+function confirmaCadastroCognito(userName, code, callback) {
+    console.log('confirmar cadastro')
 }
 
 function efetuarLoginCognito(userName, password, callback) {
-    let authenticationData = {
-        Username: userName,
-        Password: password
-    }
-    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
-        authenticationData
-    )
+    console.log('efetuando login')
+}
 
-    getUser(userName).authenticateUser(authenticationDetails, {
-        onSuccess: function(result) {
-            console.info(result)
-            document.getElementById('responsediv').innerHTML = JSON.stringify(
-                result,
-                undefined,
-                2
-            )
-        },
+function efetuarLogoutCognito(callback) {
+    console.log('efetuando logout')
+}
 
-        onFailure: function(err) {
-            console.info(err)
-            document.getElementById('responsediv').innerHTML = JSON.stringify(
-                err,
-                undefined,
-                2
-            )
+function apagarUsuarioCognito(callback) {
+    console.log('apagando usuário')
+}
+
+function trocarSenhaCognito(oldPassword, newPassword, callback) {
+    console.log('trocando senha')
+}
+
+function esqueciSenhaCognito(userName, callback) {
+    console.log('esqueci senha')
+}
+
+function confirmarEsqueciSenha(userName, code, newPassword, callback) {
+    console.log('confirmar esqueci senha')
+}
+
+function consultarDadosUsuario(updateCallback) {
+    console.log('consultar dados usuário')
+}
+
+function tratarCallback(callback) {
+    return {
+        onFailure: err => {
+            callback(err, null)
         },
-        newPasswordRequired: function(userAttributes, requiredAttributes) {
-            cognitoUser.completeNewPasswordChallenge(
-                password,
-                requiredAttributes,
-                this
-            )
+        onSuccess: result => {
+            callback(null, result)
         }
-    })
+    }
 }

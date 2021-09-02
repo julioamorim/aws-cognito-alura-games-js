@@ -1,5 +1,5 @@
 .jumbotron {
-    background: -webkit-linear-gradient(top,#4e053c 70%,#97249b 100%);
+    background: -webkit-linear-gradient(top,#27546b 70%,#4a83a0 100%);
     color: #FFF;
 }
 
@@ -10,7 +10,7 @@
 
 .modal-header {
     border-bottom:1px solid #eee;
-    background-color: #5c0b4a;
+    background-color: #27546b;
     color: #FFF;
     -webkit-border-top-left-radius: 5px;
     -webkit-border-top-right-radius: 5px;
@@ -21,7 +21,7 @@
  }
 
  .bg-button {
-    background-color:#720c69 !important; 
+    background-color:#27546b !important; 
     color: #FFF;
 }
 

@@ -146,11 +146,11 @@ function modalFormulario(){
 	$("#addUserModal").modal('hide');
 }
 
-//atualizar campos a serem exibidos no modal configurarModalFormulario(true,false,false, true, false, false, "efetuarLogin", "Efetuar login");
+//atualizar campos a serem exibidos no modal
 function configurarModalFormulario(showUserName,showName, showEmail, showPassword, showNewPassword, showConfirm, buttonText, title){
-	visibility("userNameDiv", true);
-	visibility("nameDiv", false);
-	visibility("userEmailDiv", false);
+	visibility("userNameDiv", showUserName);
+	visibility("nameDiv", showName);
+	visibility("userEmailDiv", showEmail);
 	if (showNewPassword){
 		visibility("userNewPasswordDiv", true);
 		$("#passwordLabel").text("Senha atual"); 
@@ -175,18 +175,45 @@ function toggleShowPassword(checkBoxId, inputId){
 		$("#" + inputId).prop("type", "password");
 	}
 }
+//cadastrar
+function cadastrarUsuario(){
+	configurarModalFormulario(true,true, true, true, false, false, "cadastrarUsuario", "Cadastrar novo usuário");
+}
 
+//confirmar cadastro
+function confirmarCadastro() {
+	configurarModalFormulario(true,false, false, false, false, true, "confirmarCadastro", "Confirmar cadastro");
+}
 
 //login
 function efetuarLogin() {
+	configurarModalFormulario(true,false,false, true, false, false, "efetuarLogin", "Efetuar login");
+}
 
-	let username = $("#userName").val();
-	let password =  $("#userPassword").val();
-	console.info(username);
-	console.info(password);
-	message = `Usuário <i>${username}</i> logado`;
-		callback = criarCallBack(message, username, "", "true", "Logado");			
-		efetuarLoginCognito(username, password, callback);
+//logout
+function efetuarLogout() {
+	let message = `O usuário <i>${user.name}</i> efetuou logout!`
+	let callback = criarCallBack(message, user.name, 
+		                          user.email, user.email_verified, "Efetuar logout");
+	efetuarLogoutCognito(callback);
+}
+
+//trocar senha
+function trocarSenha(){
+	configurarModalFormulario(false,false, false, true, true, false, "trocarSenha", "Trocar senha");	
+}
+
+//esqueci senha
+function esqueciSenha(){
+	configurarModalFormulario(true, false,false, false, false, false, "esqueciSenha", "Esqueci a senha");		
+}
+
+//apagar usuário
+function apagarUsuario(){
+	let message = `Usuário <i>${user.name}</i> apagado com sucesso!`
+	let callback = criarCallBack(message, "", "", "", "");
+
+	apagarUsuarioCognito(callback);
 }
 
 //renderizar atributos do usuário logado
